@@ -1,0 +1,98 @@
+# macOS / Windows
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# IDE и временные файлы редакторов
+.idea/
+.vscode/
+*.iml
+*~
+*.swp
+*.swo
+
+# Python: виртуальные окружения, байткод и сборка
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Кэши инструментов и локальные отчёты покрытия
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.tox/
+.nox/
+.cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Локальные переменные окружения; шаблоны сохраняем
+.env
+.env.*
+*.env
+!.env.example
+!.env.sample
+!.env.template
+!*.env.example
+!*.env.sample
+!*.env.template
+
+# Приватные ключи и контейнеры с ключевым материалом
+# Публичные сертификаты .crt и .pem не исключаем целиком.
+*.key
+*-key.pem
+*_key.pem
+private*.pem
+*.p12
+*.pfx
+/secrets/
+/certs/generated/
+/pki/private/
+
+# Рабочие конфигурации WireGuard могут содержать PrivateKey / PresharedKey.
+# Для репозитория используем *.conf.example или *.conf.template.
+/wireguard/*.conf
+/deploy/wireguard/*.conf
+
+# Локальное состояние Docker, БД и резервные копии
+/data/postgres/
+/data/runtime/
+/docker/volumes/
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite3-journal
+*.sqlite-wal
+*.sqlite3-wal
+*.sqlite-shm
+*.sqlite3-shm
+/dumps/
+/backups/
+
+# Журналы и временные результаты лабораторных экспериментов
+*.log
+/logs/
+/tmp/
+/artifacts/local/
+/reports/local/
+/results/local/
+*.pcap
+*.pcapng
+
+# Зависимости фронтенда, если появится тестовый UI
+node_modules/
+
+# Документация, нормативные акты, миграции, тестовые fixtures,
+# Docker Compose и lock-файлы зависимостей должны попадать в Git.
