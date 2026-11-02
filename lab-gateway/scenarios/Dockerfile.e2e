@@ -1,0 +1,6 @@
+FROM python:3.12-slim
+WORKDIR /scenarios
+COPY scenarios/requirements.txt /scenarios/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY scenarios/cia.py scenarios/wait_and_run.py /scenarios/
+ENTRYPOINT ["python", "/scenarios/wait_and_run.py"]

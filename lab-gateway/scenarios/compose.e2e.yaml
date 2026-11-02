@@ -1,0 +1,40 @@
+services:
+  database:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: gateway
+      POSTGRES_USER: gateway
+      POSTGRES_PASSWORD: ${LAB_DB_PASSWORD:?required}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gateway -d gateway"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    tmpfs:
+      - /var/lib/postgresql/data
+  gateway:
+    build:
+      context: ..
+    environment:
+      DATABASE_URL: postgresql://gateway:${LAB_DB_PASSWORD:?required}@database:5432/gateway
+      CLIENTS_JSON: ${LAB_CLIENTS_JSON:?required}
+      LAB_MODE: ${LAB_MODE:?required}
+    depends_on:
+      database:
+        condition: service_healthy
+  checks:
+    build:
+      context: ..
+      dockerfile: scenarios/Dockerfile.e2e
+    network_mode: service:gateway
+    depends_on:
+      gateway:
+        condition: service_started
+    environment:
+      LAB_READER_TOKEN: ${LAB_READER_TOKEN:?required}
+      LAB_PRODUCER_TOKEN: ${LAB_PRODUCER_TOKEN:?required}
+    volumes:
+      - type: bind
+        source: ${LAB_REPORT_DIR:?required}
+        target: /results
+    entrypoint: ["python", "/scenarios/wait_and_run.py"]
